@@ -205,11 +205,12 @@ class NeuralNetwork(object):
 
 if __name__ == "__main__":
 
-    nn = NeuralNetwork(sizes=[784,16,16], epochs=1)
-    training_data = load_mnist()
-
-    nn.fit(training_data)
-
+    nn = NeuralNetwork(sizes=[784,10,10], epochs=1)
+    data = load_mnist()
+    training_data = data[0]
+    validation_data = data[1]
+    test_data = data[2]
+    nn.fit(data[0], data[1])
     nn.save()
 
 

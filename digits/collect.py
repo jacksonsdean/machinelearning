@@ -9,7 +9,7 @@ import numpy as np
 def load_mnist():
     if not os.path.exists(os.path.join(os.curdir, 'data')):
         os.mkdir(os.path.join(os.curdir, 'data'))
-    wget.download('http://deeplearning.net/data/mnist/mnist.pkl.gz', out='data')
+        wget.download('http://deeplearning.net/data/mnist/mnist.pkl.gz', out='data')
 
     data_file = gzip.open(os.path.join(os.curdir, 'data', 'mnist.pkl.gz'), 'rb')
     training_data, validation_data, test_data = cPickle.load(data_file)
@@ -33,4 +33,4 @@ def vectorized_result(y):
     e[y] = 1.0
     return e
 
-load_mnist()
+
