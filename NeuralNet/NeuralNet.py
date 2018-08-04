@@ -1,6 +1,6 @@
 from numpy import exp, array, random, dot, genfromtxt
 import csv
-import pandas as p
+from pandas import read_csv
 
 class NeuralNetwork():
     def __init__(self):
@@ -52,43 +52,19 @@ class NeuralNetwork():
 
 def get_training_data_input():
     training_data = array([])
-    labels = []
-    i = 0
-    with open('./data/train.csv', 'r') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        headers = next(reader)
-        labels = reader[1]
-        for row in reader:
-            if i > 1000:
-                break
-            i += 1
-            img_data = []
-            for val in row[1:]:
-                # print(val)
-                f = float(val)
-                img_data.append(f)
-
-            training_data.append(img_data)
-    print(labels)
+    csv_file = './data/train.csv'
+    columns = read_csv(csv_file, header=0)
+    # for each column 
+    for p in columns.pixel0:
+        print(p)
     return training_data # the first row is just headers
 
 def get_training_data_output():
-    training_data = []
-    i = 0
-    with open('./data/train.csv', 'r') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        headers = next(reader)
-
-        for row in reader:
-            if i > 1000:
-                break
-            i += 1
-            img_data = []
-            for val in row[1:]:
-                f = float(val)
-                img_data.append(f)
-            training_data.append(img_data)
-    return training_data # the first row is just labels
+    labels = []
+    csv_file = './data/train.csv'
+    columns = read_csv(csv_file)
+    labels = columns.label
+    return labels # the first row is just labels
 
 def get_test_input():
     i = 0
