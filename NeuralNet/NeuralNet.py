@@ -31,6 +31,7 @@ class NeuralNetwork():
     # Adjusting the synaptic weights each time.
     def train(self, training_set_inputs, training_set_outputs, number_of_training_iterations):
         for iteration in range(number_of_training_iterations):
+            print(str(iteration*100/number_of_training_iterations),"% complete", end="\r")
             # Pass the training set through our neural network (a single neuron).
             output = self.think(training_set_inputs)
 
@@ -45,7 +46,7 @@ class NeuralNetwork():
 
             # Adjust the weights.
             self.synaptic_weights += adjustment
-
+        print("\nDone.")
     # The neural network thinks.
     def think(self, inputs):
         # Pass inputs through our neural network (our single neuron).
@@ -109,6 +110,7 @@ if __name__ == "__main__":
     training_set_outputs = output
 
     # Train the neural network using a training set.
+    print("Training.....\n")
     n_net.train(training_set_inputs, training_set_outputs, 10000)
 
     with open("out.txt", "w") as file:
