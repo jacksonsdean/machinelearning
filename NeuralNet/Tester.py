@@ -3,7 +3,7 @@ import csv
 from pandas import read_csv
 
 class NeuralNetwork():
-    neurons = 512
+    neurons = 5
     def __init__(self):
         # Seed the np.random number generator, so it generates the same numbers
         # every time the program runs.
@@ -47,14 +47,14 @@ class NeuralNetwork():
             # Adjust the weights.
             self.synaptic_weights += adjustment
         print("\nDone.")
+
     # The neural network thinks.
     def think(self, inputs):
         # Pass inputs through our neural network (our single neuron).
         return self.__sigmoid(np.dot(inputs, self.synaptic_weights))
 
     def predict(self, input):
-        self.think(input)
-        return np.argmax(self.synaptic_weights[-1])
+        return self.think(input)
 
 
 
@@ -87,9 +87,13 @@ class NeuralNetwork():
         result["label"] = dataFrame[dataFrame.columns[0]][test_case]
         for col in dataFrame.columns[1:]:
             one_img_arr.append(dataFrame[col][test_case])
+            print(len(one_img_arr))
 
         result["arr"] = one_img_arr
         return result
+
+
+
 
 if __name__ == "__main__":
 
@@ -108,8 +112,4 @@ if __name__ == "__main__":
 
     test_data = n_net.get_test_data()
 
-    print("\nTEST PREDICTION:\nActual:",test_data["label"] , "Prediction:", n_net.predict(test_data["arr"]))
-
-    # Test the neural network with a new situation.
-    # print("Considering test data: ")
-    # print(n_net.think(get_test_input()))
+    print("\nTEST PREDICTION:\nActual:", test_data["label"] , "Prediction:", n_net.predict(test_data["arr"]))

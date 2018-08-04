@@ -3,7 +3,7 @@ import csv
 from pandas import read_csv
 
 class NeuralNetwork():
-    neurons = 512
+    neurons = 10
     def __init__(self):
         # Seed the np.random number generator, so it generates the same numbers
         # every time the program runs.
