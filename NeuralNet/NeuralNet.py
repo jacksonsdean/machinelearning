@@ -1,5 +1,6 @@
 from numpy import exp, array, random, dot, genfromtxt
 import csv
+import pandas as p
 
 class NeuralNetwork():
     def __init__(self):
@@ -50,11 +51,13 @@ class NeuralNetwork():
 
 
 def get_training_data_input():
-    training_data = []
+    training_data = array([])
+    labels = []
     i = 0
     with open('./data/train.csv', 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         headers = next(reader)
+        labels = reader[1]
         for row in reader:
             if i > 1000:
                 break
@@ -64,7 +67,9 @@ def get_training_data_input():
                 # print(val)
                 f = float(val)
                 img_data.append(f)
+
             training_data.append(img_data)
+    print(labels)
     return training_data # the first row is just headers
 
 def get_training_data_output():
