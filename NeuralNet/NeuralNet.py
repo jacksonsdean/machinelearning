@@ -1,23 +1,23 @@
-from numpy import exp, array, random, dot, genfromtxt
+import numpy as np
 import csv
 from pandas import read_csv
 
 class NeuralNetwork():
     def __init__(self):
-        # Seed the random number generator, so it generates the same numbers
+        # Seed the np.random number generator, so it generates the same numbers
         # every time the program runs.
-        random.seed(1)
+        np.random.seed(1)
 
         # We model a single neuron, with 3 input connections and 1 output connection.
-        # We assign random weights to a 3 x 1 matrix, with values in the range -1 to 1
+        # We assign np.random weights to a 3 x 1 matrix, with values in the range -1 to 1
         # and mean 0.
-        self.synaptic_weights = 2 * random.random((784, 1)) - 1
+        self.synaptic_weights = 2 * np.random.random((784, 1)) - 1
 
     # The Sigmoid function, which describes an S shaped curve.
     # We pass the weighted sum of the inputs through this function to
     # normalise them between 0 and 1.
     def __sigmoid(self, x):
-        return 1 / (1 + exp(-x))
+        return 1 / (1 + np.exp(-x))
 
     # The derivative of the Sigmoid function.
     # This is the gradient of the Sigmoid curve.
@@ -39,7 +39,7 @@ class NeuralNetwork():
             # Multiply the error by the input and again by the gradient of the Sigmoid curve.
             # This means less confident weights are adjusted more.
             # This means inputs, which are zero, do not cause changes to the weights.
-            adjustment = dot(training_set_inputs.T, error * self.__sigmoid_derivative(output))
+            adjustment = np.dot(training_set_inputs.T, error * self.__sigmoid_derivative(output))
 
             # Adjust the weights.
             self.synaptic_weights += adjustment
@@ -47,16 +47,18 @@ class NeuralNetwork():
     # The neural network thinks.
     def think(self, inputs):
         # Pass inputs through our neural network (our single neuron).
-        return self.__sigmoid(dot(inputs, self.synaptic_weights))
+        return self.__sigmoid(np.dot(inputs, self.synaptic_weights))
 
 
 def get_training_data_input():
-    training_data = array([])
+    training_data = np.zeros((784, 42000))
     csv_file = './data/train.csv'
-    columns = read_csv(csv_file, header=0)
-    # for each column 
-    for p in columns.pixel0:
-        print(p)
+    dataFrame = read_csv(csv_file, header=0)
+    # for each column
+    for col in dataFrame.columns:
+        # for value in dataFrame[col][1:]:
+        np.append(training_data, dataFrame[col])
+    print(training_data.shape)
     return training_data # the first row is just headers
 
 def get_training_data_output():
@@ -88,15 +90,15 @@ if __name__ == "__main__":
     #Intialise a single neuron neural network.
     neural_network = NeuralNetwork()
 
-    # print("Random starting synaptic weights: ")
+    # print("np.random starting synaptic weights: ")
     # print(len(neural_network.synaptic_weights))
 
     # The training set. We have 4 examples, each consisting of 3 input values
     # and 1 output value.
     # training_set_inputs = array([[0, 0, 1], [1, 1, 1], [1, 0, 1], [0, 1, 1]])
 
-    input = array(get_training_data_input())
-    output = array(get_training_data_output())
+    input = np.array(get_training_data_input())
+    output = np.array(get_training_data_output())
     # for i in inspect.getmembers(input.size):
         # print(i[0])
 
