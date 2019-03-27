@@ -1,1 +1,1 @@
-# Just messing around with some machine learning stuffs
+Trying out and modifying other people's machine learning code
