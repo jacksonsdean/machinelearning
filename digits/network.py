@@ -205,7 +205,7 @@ class NeuralNetwork(object):
 
 if __name__ == "__main__":
 
-    nn = NeuralNetwork(sizes=[784,10,10], epochs=1)
+    nn = NeuralNetwork(sizes=[784,10,10], epochs=5)
     data = load_mnist()
     training_data = data[0]
     validation_data = data[1]
