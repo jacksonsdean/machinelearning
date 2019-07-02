@@ -97,11 +97,11 @@ class NeuralNetwork:
         cmap = ListedColormap(colors)
 
         # not zoomed:
-        # x1_min, x1_max = X[:, 0].min() - 1, X[:, 0].max() + 1
-        # x2_min, x2_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+        x1_min, x1_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+        x2_min, x2_max = X[:, 1].min() - 1, X[:, 1].max() + 1
         # To produce zoomed-out figures, you can replace the preceding 2 lines with:
-        x1_min, x1_max = -10, 11
-        x2_min, x2_max = -10, 11
+        # x1_min, x1_max = -10, 11
+        # x2_min, x2_max = -10, 11
         resolution = max(x1_max - x1_min, x2_max - x2_min) / float(points)
 
         xx1, xx2 = numpy.meshgrid(numpy.arange(x1_min,
@@ -145,12 +145,10 @@ if __name__ == '__main__':
     numpy.random.seed(0)
     # Initialize the NeuralNetwork with 2 input, 2 hidden, and 1 output neurons
     nn = NeuralNetwork([2, 2, 1])
+
     X = numpy.array([[0, 0],
-
                      [0, 1],
-
                      [1, 0],
-
                      [1, 1]])
 
     y = numpy.array([0, 1, 1, 0])
@@ -158,4 +156,8 @@ if __name__ == '__main__':
     print("--Final prediction--")
     for s in X:
         print(s, nn.predict(s))
+
+    other_test = [2, 0]
+    print(other_test, nn.predict(other_test))
+
     nn.plot_decision_regions(X, y)
